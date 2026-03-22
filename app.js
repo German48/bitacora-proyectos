@@ -92,15 +92,30 @@ const el = {
   importMergeUseImportedBtn: document.getElementById('import-merge-use-imported-btn')
 };
 
-// Arranque: intentar cargar desde Supabase, si no usar localStorage
-sbLoad().then((remoteData) => {
-  if (remoteData && Array.isArray(remoteData) && remoteData.length > 0) {
-    state.projects = normalizeProjects(remoteData);
+// Arranque: cargar desde Supabase
+sbLoad().then((row) => {
+  if (row && Array.isArray(row.data) && row.data.length > 0) {
+    state.projects = normalizeProjects(row.data);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
     if (state.projects.length > 0) state.selectedProjectId = state.projects[0].id;
+    sbLastUpdatedAt = row.updated_at;
     renderAll();
   }
-}).catch(() => {});
+  // Arrancar auto-sync cada 30s
+  sbStartAutoSync((remoteProjects) => {
+    state.projects = normalizeProjects(remoteProjects);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
+    ensureSelectedProjectStillExists();
+    renderAll();
+  });
+}).catch(() => {
+  sbStartAutoSync((remoteProjects) => {
+    state.projects = normalizeProjects(remoteProjects);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
+    ensureSelectedProjectStillExists();
+    renderAll();
+  });
+});
 
 init();
 

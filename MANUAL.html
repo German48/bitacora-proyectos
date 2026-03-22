@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Manual Bitacora de Proyectos</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Manual Bitacora de Proyectos</h1>
+</header>
+<h1 id="bitácora-de-proyectos-manual-de-usuario">📓 Bitácora de
+Proyectos — Manual de Usuario</h1>
+<blockquote>
+<p><strong>Dirigido a:</strong> Profesores del Departamento de Formación
+Profesional <strong>App:</strong> PWA (Aplicación Web Progresiva) ·
+Funciona también en el móvil <strong>Web:</strong> <a
+href="https://german48.github.io/bitacora-proyectos">https://german48.github.io/bitacora-proyectos</a></p>
+</blockquote>
+<hr />
+<h2 id="tabla-de-contenidos">Tabla de contenidos</h2>
+<ol type="1">
+<li><a href="#1-introducción">Introducción</a></li>
+<li><a href="#2-cómo-acceder-a-la-app">Cómo acceder a la app</a></li>
+<li><a href="#3-instalar-la-app-en-tu-móvil-android">Instalar la app en
+tu móvil (Android)</a></li>
+<li><a href="#4-la-pantalla-principal">La pantalla principal</a></li>
+<li><a href="#5-crear-un-nuevo-proyecto">Crear un nuevo
+proyecto</a></li>
+<li><a href="#6-ver-y-editar-un-proyecto">Ver y editar un
+proyecto</a></li>
+<li><a href="#7-el-diario-de-participantes">El diario de
+participantes</a></li>
+<li><a href="#8-el-registro-de-avances">El registro de avances</a></li>
+<li><a href="#9-cambiar-el-estado-de-un-proyecto">Cambiar el estado de
+un proyecto</a></li>
+<li><a href="#10-generar-la-memoria-global">Generar la memoria
+global</a></li>
+<li><a href="#11-hacer-un-backup-de-tus-datos">Hacer un backup de tus
+datos</a></li>
+<li><a href="#12-restaurar-datos-desde-un-backup">Restaurar datos desde
+un backup</a></li>
+<li><a href="#13-datos-compartidos-entre-compañeros">Datos compartidos
+entre compañeros</a></li>
+<li><a href="#14-preguntas-frecuentes">Preguntas frecuentes</a></li>
+</ol>
+<hr />
+<h2 id="introducción">1. Introducción</h2>
+<p><strong>¿Qué es la Bitácora de Proyectos?</strong></p>
+<p>Es una herramienta online donde todo el departamento de Formación
+Profesional puede registrar y consultar los proyectos que se están
+llevando a cabo. Cada proyecto tiene su propia ficha donde se anota qué
+se ha hecho, qué dificultades hubo y cuáles son los próximos pasos.</p>
+<p><strong>¿Qué puedes hacer con ella?</strong></p>
+<ul>
+<li>✅ Crear proyectos nuevos</li>
+<li>📝 Registrar lo que hace cada participante día a día</li>
+<li>📊 Registrar hitos y avances importantes</li>
+<li>📄 Generar un informe resumen de todos los proyectos activos</li>
+<li>💾 Hacer copias de seguridad y restaurarlas</li>
+<li>📱 Instalarla como una app en tu móvil</li>
+</ul>
+<blockquote>
+<p><strong>Importante:</strong> Los datos se comparten entre todos los
+compañeros del departamento. Si alguien crea o modifica un proyecto,
+todos lo ven automáticamente.</p>
+</blockquote>
+<hr />
+<h2 id="cómo-acceder-a-la-app">2. Cómo acceder a la app</h2>
+<h3 id="desde-el-ordenador">Desde el ordenador</h3>
+<ol type="1">
+<li>Abre tu navegador favorito (Chrome, Firefox, Edge…).</li>
+<li>Escribe en la barra de direcciones:
+<strong>https://german48.github.io/bitacora-proyectos</strong></li>
+<li>Pulsa <strong>Enter</strong>.</li>
+</ol>
+<h3 id="desde-el-móvil">Desde el móvil</h3>
+<p>Puedes acceder igual que desde el ordenador, abriendo el navegador y
+escribiendo la dirección. Pero la forma más cómoda es <strong>instalarla
+como app</strong> (mira el apartado siguiente).</p>
+<hr />
+<h2 id="instalar-la-app-en-tu-móvil-android">3. Instalar la app en tu
+móvil (Android)</h2>
+<p>Una vez instalada, la app aparecerá en tu pantalla de inicio como
+cualquier otra aplicación y funcionará sin necesidad de tener el
+navegador abierto.</p>
+<h3 id="pasos-para-instalarla">Pasos para instalarla:</h3>
+<ol type="1">
+<li>Abre <strong>Chrome</strong> en tu móvil Android.</li>
+<li>Ve a la dirección:
+<strong>https://german48.github.io/bitacora-proyectos</strong></li>
+<li>Pulsa en el botón de <strong>menú</strong> (los tres puntitos
+<code>⋮</code>) que aparece arriba a la derecha.</li>
+<li>Selecciona la opción <strong>“Añadir a pantalla de inicio”</strong>
+(o <em>“Instalar app”</em> en algunos móviles).</li>
+<li>Opcionalmente puedes cambiar el nombre y luego pulsa
+<strong>Añadir</strong>.</li>
+<li>¡Listo! Ya tienes la app en tu pantalla de inicio. Puedes abrirla
+tocando su icono.</li>
+</ol>
+<blockquote>
+<p><strong>Nota:</strong> Necesitas tener Chrome como navegador. En
+otros navegadores (como Samsung Internet) la opción puede estar en un
+lugar ligeramente distinto, pero el proceso es muy similar.</p>
+</blockquote>
+<hr />
+<h2 id="la-pantalla-principal">4. La pantalla principal</h2>
+<p>Al abrir la app verás una barra superior con:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proyectos ▾</strong></td>
+<td>Despliega la lista de todos los proyectos del departamento</td>
+</tr>
+<tr>
+<td><strong>+ Nuevo proyecto</strong></td>
+<td>Botón para crear un proyecto nuevo</td>
+</tr>
+<tr>
+<td><strong>Memoria global</strong></td>
+<td>Genera un informe de todos los proyectos activos</td>
+</tr>
+<tr>
+<td><strong>Backup</strong></td>
+<td>Descarga una copia de seguridad de todos los datos</td>
+</tr>
+<tr>
+<td><strong>Restaurar</strong></td>
+<td>Recupera datos desde un archivo de backup</td>
+</tr>
+</tbody>
+</table>
+<p>Debajo de la barra encontrarás la <strong>ficha del proyecto
+seleccionado</strong> (al principio aparece vacía o se muestra un
+proyecto predeterminado).</p>
+<hr />
+<h2 id="crear-un-nuevo-proyecto">5. Crear un nuevo proyecto</h2>
+<ol type="1">
+<li>Pulsa el botón <strong>+ Nuevo proyecto</strong> en la barra
+superior.</li>
+<li>Se abrirá un formulario con los siguientes campos:</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué escribir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Título</strong></td>
+<td>Nombre del proyecto (ej. <em>“Adaptaciones curriculares
+2025”</em>)</td>
+</tr>
+<tr>
+<td><strong>Ámbito</strong></td>
+<td>Área o módulo al que pertenece (ej. <em>“Informática”</em>,
+<em>“Electricidad”</em>)</td>
+</tr>
+<tr>
+<td><strong>Responsable</strong></td>
+<td>Persona que coordina el proyecto</td>
+</tr>
+<tr>
+<td><strong>Participantes</strong></td>
+<td>Nombres de los profesores/alumnos implicados (separados por
+coma)</td>
+</tr>
+<tr>
+<td><strong>Fecha de inicio</strong></td>
+<td>Cuándo empieza el proyecto</td>
+</tr>
+<tr>
+<td><strong>Fecha de fin</strong></td>
+<td>Cuándo está previsto terminarlo (puede quedar vacío)</td>
+</tr>
+<tr>
+<td><strong>Estado</strong></td>
+<td>Estado actual del proyecto (ver apartado 9)</td>
+</tr>
+<tr>
+<td><strong>Descripción</strong></td>
+<td>Explicación breve de en qué consiste el proyecto</td>
+</tr>
+<tr>
+<td><strong>Objetivo</strong></td>
+<td>Qué se quiere conseguir con este proyecto</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
+<li>Rellena los campos que necesites.</li>
+<li>Pulsa <strong>Guardar</strong> (o el botón equivalente de tu
+interfaz).</li>
+<li>El proyecto aparecerá en la lista desplegable bajo <strong>Proyectos
+▾</strong>.</li>
+</ol>
+<hr />
+<h2 id="ver-y-editar-un-proyecto">6. Ver y editar un proyecto</h2>
+<ol type="1">
+<li>Pulsa el botón <strong>Proyectos ▾</strong> en la barra
+superior.</li>
+<li>Selecciona el proyecto que quieras consultar.</li>
+<li>Se mostrará su <strong>ficha completa</strong> con:
+<ul>
+<li><strong>Datos generales</strong> (título, ámbito, responsable,
+fechas, estado…)</li>
+<li><strong>Diario de participantes</strong> (registro de actividad
+diaria)</li>
+<li><strong>Registro de avances</strong> (hitos y logros del
+proyecto)</li>
+</ul></li>
+<li>Para editar cualquier dato, busca el icono de <strong>lápiz</strong>
+o botón <strong>Editar</strong> dentro de la ficha y modifica los campos
+que necesites.</li>
+<li>Pulsa <strong>Guardar</strong> para guardar los cambios.</li>
+</ol>
+<hr />
+<h2 id="el-diario-de-participantes">7. El diario de participantes</h2>
+<p>Es el registro de la actividad diaria o por sesión de cada
+participante en el proyecto.</p>
+<h3 id="añadir-una-entrada">Añadir una entrada:</h3>
+<ol type="1">
+<li>Entra en la ficha del proyecto.</li>
+<li>Ve a la pestaña o sección <strong>“Diario de
+participantes”</strong>.</li>
+<li>Pulsa el botón <strong>+ Nueva entrada</strong> (o similar).</li>
+<li>Rellena los campos:</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué escribir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fecha</strong></td>
+<td>Día en que se realizó el trabajo (se suele poner
+automáticamente)</td>
+</tr>
+<tr>
+<td><strong>Participante</strong></td>
+<td>Nombre de la persona que ha trabajado</td>
+</tr>
+<tr>
+<td><strong>Tipo</strong></td>
+<td>Tipo de actividad (ej. <em>Reunión</em>, <em>Trabajo en aula</em>,
+<em>Preparación…</em>)</td>
+</tr>
+<tr>
+<td><strong>Ubicación</strong></td>
+<td>Lugar donde se ha hecho el trabajo (ej. <em>Aulario B</em>,
+<em>Taller 3</em>)</td>
+</tr>
+<tr>
+<td><strong>Qué hizo</strong></td>
+<td>Descripción de las tareas realizadas ese día</td>
+</tr>
+<tr>
+<td><strong>Observaciones</strong></td>
+<td>Notas adicionales que quieras recordar</td>
+</tr>
+<tr>
+<td><strong>Dificultades</strong></td>
+<td>Problemas encontrados (si no hubo, se puede dejar vacío)</td>
+</tr>
+<tr>
+<td><strong>Siguiente paso</strong></td>
+<td>Qué se tiene previsto hacer en la próxima sesión</td>
+</tr>
+</tbody>
+</table>
+<ol start="5" type="1">
+<li>Pulsa <strong>Guardar</strong>.</li>
+</ol>
+<p>Las entradas se muestran en orden cronológico (de la más reciente a
+la más antigua). Puedes editarlas o eliminarlas si te equivocas.</p>
+<hr />
+<h2 id="el-registro-de-avances">8. El registro de avances</h2>
+<p>Aquí se apuntan los <strong>hitos importantes</strong> del proyecto:
+logros conseguidos, reuniones relevantes, decisiones tomadas, etc.</p>
+<h3 id="añadir-un-avance">Añadir un avance:</h3>
+<ol type="1">
+<li>Entra en la ficha del proyecto.</li>
+<li>Ve a la pestaña o sección <strong>“Registro de
+avances”</strong>.</li>
+<li>Pulsa el botón <strong>+ Nuevo avance</strong> (o similar).</li>
+<li>Rellena los campos:</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué escribir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fecha</strong></td>
+<td>Día en que se produjo el hito</td>
+</tr>
+<tr>
+<td><strong>Autor</strong></td>
+<td>Quién registra el avance</td>
+</tr>
+<tr>
+<td><strong>Tipo</strong></td>
+<td>Tipo de hito (ej. <em>Reunión</em>, <em>Entregable</em>,
+<em>Decisión</em>, <em>Evaluación…</em>)</td>
+</tr>
+<tr>
+<td><strong>Realizado</strong></td>
+<td>Qué se ha conseguido en este hito</td>
+</tr>
+<tr>
+<td><strong>Acuerdos</strong></td>
+<td>Acuerdos tomados (si los hay)</td>
+</tr>
+<tr>
+<td><strong>Dificultades</strong></td>
+<td>Problemas surgidos</td>
+</tr>
+<tr>
+<td><strong>Siguiente paso</strong></td>
+<td>Acción que queda pendiente tras este hito</td>
+</tr>
+</tbody>
+</table>
+<ol start="5" type="1">
+<li>Pulsa <strong>Guardar</strong>.</li>
+</ol>
+<hr />
+<h2 id="cambiar-el-estado-de-un-proyecto">9. Cambiar el estado de un
+proyecto</h2>
+<p>Cada proyecto tiene un <strong>estado</strong> que se muestra con un
+color para identificarlo fácilmente:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Color</th>
+<th>Cuándo usarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟡 <strong>Borrador</strong></td>
+<td>Gris</td>
+<td>El proyecto está en fase de planificación, aún no ha comenzado</td>
+</tr>
+<tr>
+<td>🟢 <strong>Activo</strong></td>
+<td>Verde</td>
+<td>El proyecto está en marcha</td>
+</tr>
+<tr>
+<td>🟠 <strong>En pausa</strong></td>
+<td>Naranja</td>
+<td>El proyecto se ha detenido temporalmente</td>
+</tr>
+<tr>
+<td>🔵 <strong>Cerrado</strong></td>
+<td>Azul</td>
+<td>El proyecto ha finalizado</td>
+</tr>
+</tbody>
+</table>
+<h3 id="para-cambiar-el-estado">Para cambiar el estado:</h3>
+<ol type="1">
+<li>Entra en la ficha del proyecto.</li>
+<li>Busca el selector o desplegable de <strong>Estado</strong>.</li>
+<li>Selecciona el nuevo estado.</li>
+<li>El cambio se guarda automáticamente o al pulsar
+<strong>Guardar</strong>.</li>
+</ol>
+<hr />
+<h2 id="generar-la-memoria-global">10. Generar la memoria global</h2>
+<p>La <strong>memoria global</strong> es un informe automático que
+recopila todos los proyectos que están en estado
+<strong>Activo</strong>. Es útil para presentar un resumen al equipo
+directivo o al departamento.</p>
+<ol type="1">
+<li>Pulsa el botón <strong>Memoria global</strong> en la barra
+superior.</li>
+<li>Selecciona el formato de exportación:
+<ul>
+<li><strong>TXT</strong> → Archivo de texto plano
+(<code>.txt</code>)</li>
+<li><strong>MD</strong> → Archivo Markdown (<code>.md</code>), ideal
+para copiar y pegar en documentos Word o Google Docs</li>
+</ul></li>
+<li>Se descargará un archivo con toda la información de los proyectos
+activos.</li>
+<li>Puedes abrirlo con cualquier editor de texto o procesador de
+documentos.</li>
+</ol>
+<hr />
+<h2 id="hacer-un-backup-de-tus-datos">11. Hacer un backup de tus
+datos</h2>
+<p>El <strong>backup</strong> es una copia de seguridad de todos los
+proyectos y registros. Si algo sale mal, podrás recuperar todos los
+datos.</p>
+<ol type="1">
+<li>Pulsa el botón <strong>Backup</strong> en la barra superior.</li>
+<li>El navegador te ofrecerá <strong>descargar un archivo</strong>
+(extensión <code>.json</code>).</li>
+<li>Elige dónde guardarlo (móvil, carpeta de Drive, etc.).</li>
+<li><strong>Recomendación:</strong> Guarda este archivo en un lugar
+seguro y haz un backup de vez en cuando, especialmente antes de hacer
+cambios importantes.</li>
+</ol>
+<hr />
+<h2 id="restaurar-datos-desde-un-backup">12. Restaurar datos desde un
+backup</h2>
+<p>Si necesitas recuperar los datos (por ejemplo, si se han borrado
+accidentalmente o cambias de dispositivo):</p>
+<ol type="1">
+<li>Pulsa el botón <strong>Restaurar</strong> en la barra superior.</li>
+<li>Selecciona el archivo <code>.json</code> que guardaste
+previamente.</li>
+<li>Confirma la restauración.</li>
+<li>Los datos se cargarán y la app mostrará el estado de tu último
+backup.</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Atención:</strong> Restaurar un backup sobrescribirá los
+datos actuales. Asegúrate de que el archivo que cargas es el que quieres
+usar.</p>
+</blockquote>
+<hr />
+<h2 id="datos-compartidos-entre-compañeros">13. Datos compartidos entre
+compañeros</h2>
+<p>Una de las grandes ventajas de esta app es que <strong>todos los
+profesores del departamento ven y trabajan sobre los mismos
+datos</strong>. No hay una copia para cada uno.</p>
+<p><strong>¿Qué significa esto en la práctica?</strong></p>
+<ul>
+<li>Si Ana crea un proyecto, Benito y Carlos lo verán
+inmediatamente.</li>
+<li>Si un compañero añade una entrada al diario, todos la ven al
+instante.</li>
+<li><strong>Solo existe una fuente de verdad</strong>, así que no hay
+conflictos de versiones.</li>
+</ul>
+<blockquote>
+<p><strong>Nota:</strong> Para que los datos se actualicen en tiempo
+real es necesario tener conexión a internet. Si trabajas sin conexión,
+los cambios se sincronizarán cuando vuelvas a conectarte.</p>
+</blockquote>
+<hr />
+<h2 id="preguntas-frecuentes">14. Preguntas frecuentes</h2>
+<h3 id="puedo-usar-la-app-sin-conexión-a-internet">🚚 ¿Puedo usar la app
+sin conexión a internet?</h3>
+<p>Puedes abrirla y consultar datos, pero para que los cambios se
+guarden y se compartan con los demás, necesitas tener <strong>conexión a
+internet</strong>.</p>
+<hr />
+<h3 id="puedo-instalarla-en-un-iphone">📱 ¿Puedo instalarla en un
+iPhone?</h3>
+<p>La app está optimizada para <strong>Chrome en Android</strong>. En
+iPhone/iPad puedes intentar acceder desde Safari y buscar la opción
+<em>“Añadir a pantalla de inicio”</em> en el menú de compartir, aunque
+la experiencia puede variar.</p>
+<hr />
+<h3 id="dónde-se-guardan-mis-datos">🔒 ¿Dónde se guardan mis datos?</h3>
+<p>Los datos se almacenan en un servidor compartido al que todos los
+compañeros del departamento acceden. <strong>Tú no necesitas gestionar
+servidores ni bases de datos</strong>; la app lo hace
+automáticamente.</p>
+<hr />
+<h3 id="cada-cuánto-debo-hacer-un-backup">💾 ¿Cada cuánto debo hacer un
+backup?</h3>
+<p>Se recomienda hacer un backup <strong>al menos una vez al
+mes</strong> y siempre antes de hacer cambios importantes (por ejemplo,
+antes de modificar muchos proyectos a la vez). El archivo
+<code>.json</code> que te descargas es tu copia de seguridad.</p>
+<hr />
+<h3 id="he-borrado-algo-sin-querer-puedo-recuperarlo">❌ He borrado algo
+sin querer, ¿puedo recuperarlo?</h3>
+<p>Si tienes un backup anterior, sí. Pulsa <strong>Restaurar</strong> y
+carga el archivo <code>.json</code> que guardaste. Si no tienes backup,
+no será posible recuperar los datos eliminados.</p>
+<hr />
+<h3 id="quién-puede-ver-mis-proyectos">👥 ¿Quién puede ver mis
+proyectos?</h3>
+<p>Tienen acceso todos los profesores del departamento de Formación
+Profesional que usen la app. <strong>No es una app pública; los datos no
+son visibles para nadie fuera del grupo.</strong></p>
+<hr />
+<h3 id="puedo-exportar-un-solo-proyecto-no-todos">📄 ¿Puedo exportar un
+solo proyecto, no todos?</h3>
+<p>Actualmente la memoria global exporta todos los proyectos activos.
+Para exportar uno solo, puedes copiar manualmente la información desde
+la ficha del proyecto o hacer un backup completo y extraer los datos del
+archivo JSON.</p>
+<hr />
+<h3 id="puedo-editar-una-entrada-antigua">🖊️ ¿Puedo editar una entrada
+antigua?</h3>
+<p>Sí. Busca la entrada en el diario o en el registro de avances, pulsa
+el botón de <strong>editar</strong> (lápiz) y modifica los campos que
+necesites. No hay límite de tiempo para editar.</p>
+<hr />
+<h3 id="qué-pasa-si-dos-personas-editan-el-mismo-proyecto-a-la-vez">🔄
+¿Qué pasa si dos personas editan el mismo proyecto a la vez?</h3>
+<p>Los cambios se sincronizan automáticamente. Si ambos guardáis, los
+últimos cambios se incorporan. En general, la app está pensada para que
+cada persona edite las entradas que ella misma ha creado.</p>
+<hr />
+<p><em>Manual creado para el Departamento de Formación Profesional ·
+Bitácora de Proyectos v1.0</em></p>
+</body>
+</html>

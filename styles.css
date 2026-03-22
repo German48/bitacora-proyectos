@@ -1269,6 +1269,25 @@ a { color: var(--primary); }
   border-color: #fca5a5 !important;
 }
 
+/* Indicador de sincronización */
+.sync-indicator {
+  font-size: 0.65rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: color 0.3s;
+  cursor: default;
+  margin-right: 0.25rem;
+}
+.sync-indicator[data-status="ok"]     { color: #86efac; }
+.sync-indicator[data-status="saving"] { color: #fcd34d; animation: pulse 0.8s infinite; }
+.sync-indicator[data-status="error"]  { color: #fca5a5; }
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
 /* Hover azul en todos los botones no primarios */
 button:not(.primary):not([class*="danger"]):not([class*="theme"]):not([class*="sidebar"]):hover {
   background: var(--primary-soft, #dbeafe) !important;
