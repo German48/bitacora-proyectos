@@ -176,33 +176,46 @@ function init() {
   });
 
   // Backup y restaurar
-  document.getElementById('backup-btn').addEventListener('click', () => {
-    const payload = buildBackupPayload();
-    const date = new Date().toISOString().slice(0, 10);
-    downloadJson(payload, `bitacora-backup-${date}.json`);
-  });
-  document.getElementById('restore-btn').addEventListener('click', () => {
-    document.getElementById('restore-input').click();
-  });
-  document.getElementById('restore-input').addEventListener('change', async (e) => {
-    const [file] = e.target.files || [];
-    e.target.value = '';
-    if (!file) return;
-    try {
-      const raw = await file.text();
-      const parsed = JSON.parse(raw);
-      const projects = normalizeImportedProjects(parsed);
-      if (!projects.length) { window.alert('El archivo no contiene proyectos válidos.'); return; }
-      if (!window.confirm(`¿Restaurar ${projects.length} proyecto(s) desde "${file.name}"? Se sustituirán los datos actuales.`)) return;
-      state.projects = projects;
-      state.selectedProjectId = projects[0]?.id || null;
-      persist();
-      renderAll();
-      window.alert('✅ Restauración completada correctamente.');
-    } catch {
-      window.alert('Error al leer el archivo. Asegúrate de que es un backup válido.');
-    }
-  });
+  const backupBtn = document.getElementById('backup-btn');
+  const restoreBtn = document.getElementById('restore-btn');
+  const restoreInput = document.getElementById('restore-input');
+
+  if (backupBtn) {
+    backupBtn.addEventListener('click', () => {
+      try {
+        const payload = buildBackupPayload();
+        const date = new Date().toISOString().slice(0, 10);
+        downloadJson(payload, 'bitacora-backup-' + date + '.json');
+      } catch(err) {
+        window.alert('Error al generar el backup: ' + err.message);
+      }
+    });
+  }
+
+  if (restoreBtn && restoreInput) {
+    restoreBtn.addEventListener('click', () => {
+      restoreInput.value = '';
+      restoreInput.click();
+    });
+    restoreInput.addEventListener('change', async (e) => {
+      const [file] = e.target.files || [];
+      if (!file) return;
+      try {
+        const raw = await file.text();
+        const parsed = JSON.parse(raw);
+        const projects = normalizeImportedProjects(parsed);
+        if (!projects.length) { window.alert('El archivo no contiene proyectos validos.'); return; }
+        if (!window.confirm('Restaurar ' + projects.length + ' proyecto(s) desde "' + file.name + '"? Se sustituiran los datos actuales.')) return;
+        state.projects = projects;
+        state.selectedProjectId = projects[0]?.id || null;
+        persist();
+        renderAll();
+        window.alert('Restauracion completada correctamente.');
+      } catch(err) {
+        window.alert('Error al leer el archivo: ' + err.message);
+      }
+    });
+  }
 
   // Dropdown de proyectos
   const dropdownBtn = document.getElementById('projects-dropdown-btn');

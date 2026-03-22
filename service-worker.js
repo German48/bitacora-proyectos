@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bitacora-proyectos-v2-26';
+const CACHE_NAME = 'bitacora-proyectos-v2-27';
 const APP_SHELL = [
   './',
   './index.html',
