@@ -175,6 +175,35 @@ function init() {
     showFeedback(el.globalReportFeedback, 'La aplicación se ha instalado correctamente.');
   });
 
+  // Backup y restaurar
+  document.getElementById('backup-btn').addEventListener('click', () => {
+    const payload = buildBackupPayload();
+    const date = new Date().toISOString().slice(0, 10);
+    downloadJson(payload, `bitacora-backup-${date}.json`);
+  });
+  document.getElementById('restore-btn').addEventListener('click', () => {
+    document.getElementById('restore-input').click();
+  });
+  document.getElementById('restore-input').addEventListener('change', async (e) => {
+    const [file] = e.target.files || [];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const raw = await file.text();
+      const parsed = JSON.parse(raw);
+      const projects = normalizeImportedProjects(parsed);
+      if (!projects.length) { window.alert('El archivo no contiene proyectos válidos.'); return; }
+      if (!window.confirm(`¿Restaurar ${projects.length} proyecto(s) desde "${file.name}"? Se sustituirán los datos actuales.`)) return;
+      state.projects = projects;
+      state.selectedProjectId = projects[0]?.id || null;
+      persist();
+      renderAll();
+      window.alert('✅ Restauración completada correctamente.');
+    } catch {
+      window.alert('Error al leer el archivo. Asegúrate de que es un backup válido.');
+    }
+  });
+
   // Dropdown de proyectos
   const dropdownBtn = document.getElementById('projects-dropdown-btn');
   const dropdownPanel = document.getElementById('projects-dropdown-panel');
