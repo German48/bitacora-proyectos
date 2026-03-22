@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1d4ed8" />
+  <meta name="description" content="Bitácora interna para seguimiento de proyectos, avances, tareas, documentos y memoria global." />
+  <title>Bitácora de Proyectos</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.svg" />
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* Ocultar secciones del proyecto que no se necesitan */
+    #accordion-body-tasks,
+    #accordion-body-docs,
+    #accordion-body-report,
+    #project-closing-card,
+    section.card:has(#accordion-body-tasks),
+    section.card:has(#accordion-body-docs),
+    section.card:has(#accordion-body-report) {
+      display: none !important;
+    }
+    /* En vista global, ocultar todo lo que no sea el informe */
+    .layout--full #project-section,
+    .layout--full #sidebar,
+    #global-view .global-stats-grid,
+    #global-view .data-management-panel,
+    #global-view .import-preview-panel {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header__intro">
+      <h1>Bitácora de Proyectos</h1>
+    </div>
+    <div class="header-stats">
+      <span class="header-stat header-stat--borrador">
+        <strong id="stat-draft-projects">0</strong>
+        <span>borrador</span>
+      </span>
+      <span class="header-stat header-stat--active">
+        <strong id="stat-active-projects">0</strong>
+        <span>activos</span>
+      </span>
+      <span class="header-stat header-stat--pausa">
+        <strong id="stat-paused-projects">0</strong>
+        <span>pausa</span>
+      </span>
+      <span class="header-stat header-stat--closed">
+        <strong id="stat-closed-projects">0</strong>
+        <span>cerrados</span>
+      </span>
+    </div>
+    <!-- IDs requeridos por app.js -->
+    <span id="stat-pending-tasks" style="display:none"></span>
+    <div class="app-header__tools">
+      <div class="actions header-actions">
+        <button id="install-app-btn" class="hidden">Instalar app</button>
+      </div>
+      <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar tema" title="Cambiar tema">
+        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Barra de proyectos con dropdown y acciones principales -->
+  <div class="projects-topbar" id="projects-topbar">
+    <div class="projects-topbar__left">
+      <button class="projects-dropdown-btn" id="projects-dropdown-btn" aria-expanded="false" aria-controls="projects-dropdown-panel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Proyectos
+        <svg class="dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="projects-dropdown-panel" id="projects-dropdown-panel" hidden>
+        <div id="project-list" class="project-list"></div>
+      </div>
+    </div>
+    <div class="projects-topbar__actions">
+      <button id="show-global-view-btn">Memoria global</button>
+      <button id="new-project-btn" class="primary">+ Nuevo proyecto</button>
+    </div>
+  </div>
+
+  <!-- Sidebar oculto — IDs requeridos por app.js -->
+  <aside id="sidebar" class="sidebar card" aria-hidden="true" style="display:none!important">
+    <button id="sidebar-toggle-btn" style="display:none"></button>
+    <button id="sidebar-close-btn" style="display:none"></button>
+    <div id="recent-progress-section">
+      <button id="recent-progress-toggle" aria-expanded="false">
+        <svg id="recent-progress-chevron" class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      </button>
+      <div id="recent-progress-list"></div>
+    </div>
+  </aside>
+
+  <main class="layout">
+
+    <section class="content">
+      <button id="show-project-view-btn" class="hidden" aria-hidden="true"></button>
+
+      <div id="project-section">
+        <div id="empty-state" class="card empty-state">
+          <h2>Sin proyecto seleccionado</h2>
+          <p>Crea un proyecto nuevo o selecciona uno de la lista para ver su ficha completa.</p>
+        </div>
+
+        <div id="project-view" class="hidden">
+          <section class="card project-summary">
+            <div class="project-summary__head">
+              <div>
+                <h2 id="project-title"></h2>
+                <p id="project-meta" class="muted"></p>
+              </div>
+              <div class="actions">
+                <button id="edit-project-btn">Editar ficha</button>
+                <select id="project-status-select" aria-label="Cambiar estado"></select>
+              </div>
+            </div>
+            <div class="accordion-section" id="accordion-ficha">
+              <button class="accordion-toggle" aria-expanded="false" data-target="accordion-body-ficha">
+                <span>Descripción y detalles</span>
+                <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="accordion-body" id="accordion-body-ficha" hidden>
+                <div class="project-grid">
+                  <div>
+                    <h3>Descripción breve</h3>
+                    <p id="project-description"></p>
+                  </div>
+                  <div>
+                    <h3>Objetivo</h3>
+                    <p id="project-goal"></p>
+                  </div>
+                  <div>
+                    <h3>Participantes</h3>
+                    <p id="project-participants"></p>
+                  </div>
+                  <div>
+                    <h3>Observaciones</h3>
+                    <p id="project-notes"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card project-diary-card">
+            <div class="section-head project-diary-head">
+              <div>
+                <p class="section-kicker">Seguimiento del proyecto</p>
+                <h3>Diario de participantes</h3>
+              </div>
+              <div class="actions project-diary-actions">
+                <span id="participant-diary-count" class="badge info-badge">0 entradas</span>
+                <button data-open-form="participantDiary">Añadir entrada</button>
+              </div>
+            </div>
+            <div class="accordion-section" id="accordion-diary">
+              <button class="accordion-toggle" aria-expanded="true" data-target="accordion-body-diary">
+                <span>Ver entradas y filtros</span>
+                <svg class="chevron chevron--up" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="accordion-body" id="accordion-body-diary">
+                <div class="inline-filters" aria-label="Filtros del diario de participantes">
+                  <label>Participante
+                    <select id="participant-diary-filter-participant">
+                      <option value="">Todos</option>
+                    </select>
+                  </label>
+                  <label>Tipo de entrada
+                    <select id="participant-diary-filter-type">
+                      <option value="">Todos</option>
+                    </select>
+                  </label>
+                  <label>Desde
+                    <input id="participant-diary-filter-from" type="date" />
+                  </label>
+                  <label>Hasta
+                    <input id="participant-diary-filter-to" type="date" />
+                  </label>
+                  <button id="participant-diary-clear-filters-btn" type="button">Limpiar filtros</button>
+                </div>
+                <div id="participant-diary-list" class="stack-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="accordion-section">
+              <button class="accordion-toggle" aria-expanded="true" data-target="accordion-body-progress">
+                <h3>Registro de avances</h3>
+                <div class="accordion-toggle-actions">
+                  <button class="btn-inline" data-open-form="progress" onclick="event.stopPropagation()">+ Añadir</button>
+                  <svg class="chevron chevron--up" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="accordion-body" id="accordion-body-progress">
+                <div id="progress-list" class="stack-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="accordion-section">
+              <button class="accordion-toggle" aria-expanded="false" data-target="accordion-body-tasks">
+                <h3>Tareas</h3>
+                <div class="accordion-toggle-actions">
+                  <button class="btn-inline" data-open-form="tasks" onclick="event.stopPropagation()">+ Añadir</button>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="accordion-body" id="accordion-body-tasks" hidden>
+                <div id="tasks-list" class="stack-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="accordion-section">
+              <button class="accordion-toggle" aria-expanded="false" data-target="accordion-body-docs">
+                <h3>Documentos y enlaces</h3>
+                <div class="accordion-toggle-actions">
+                  <button class="btn-inline" data-open-form="documents" onclick="event.stopPropagation()">+ Añadir</button>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="accordion-body" id="accordion-body-docs" hidden>
+                <div id="documents-list" class="stack-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section id="project-closing-card" class="card closing-card">
+            <div class="accordion-section">
+              <button class="accordion-toggle" aria-expanded="false" data-target="accordion-body-closing">
+                <div class="accordion-toggle-title">
+                  <p class="section-kicker">Fase final y documentación</p>
+                  <h3>Cierre del proyecto</h3>
+                </div>
+                <div class="accordion-toggle-actions">
+                  <span id="closing-status-badge" class="badge info-badge">Cierre opcional</span>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="accordion-body" id="accordion-body-closing" hidden>
+                <p id="closing-helper-text" class="muted" style="margin:0 0 0.75rem"></p>
+                <div class="actions closing-actions" style="margin-bottom:1rem">
+                  <button id="edit-closing-btn" data-open-form="closing">Completar cierre</button>
+                </div>
+                <div id="closing-summary" class="closing-summary"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="accordion-section">
+              <button class="accordion-toggle" aria-expanded="false" data-target="accordion-body-report">
+                <h3>Memoria final</h3>
+                <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="accordion-body" id="accordion-body-report" hidden>
+                <div class="actions" style="flex-wrap:wrap;margin-bottom:0.75rem">
+                  <button id="copy-report-btn">Copiar borrador</button>
+                  <button id="export-project-report-txt-btn">Exportar TXT</button>
+                  <button id="export-project-report-md-btn">Exportar MD</button>
+                  <button id="export-project-btn">Exportar JSON</button>
+                  <button id="generate-report-btn">Regenerar borrador</button>
+                </div>
+                <textarea id="report-output" rows="18" readonly></textarea>
+                <p id="report-feedback" class="muted feedback"></p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section id="global-view" class="card hidden">
+        <div class="section-head global-head">
+          <div>
+            <h2>Memoria global</h2>
+            <p class="muted">Informe automático de los proyectos activos.</p>
+          </div>
+          <div class="actions">
+            <button id="back-to-project-btn">← Volver a proyectos</button>
+            <button id="copy-global-report-btn">Copiar</button>
+            <button id="export-global-report-txt-btn">Exportar TXT</button>
+            <button id="export-global-report-md-btn">Exportar MD</button>
+          </div>
+        </div>
+
+        <!-- elementos ocultos requeridos por app.js -->
+        <div class="hidden" aria-hidden="true">
+          <button id="generate-global-report-btn"></button>
+          <button id="export-global-btn"></button>
+          <button id="export-backup-btn"></button>
+          <button id="import-backup-btn"></button>
+          <input id="import-backup-input" type="file" accept="application/json,.json" />
+          <div id="import-preview-panel">
+            <p id="import-preview-summary"></p>
+            <button id="confirm-import-btn"></button>
+            <button id="replace-all-import-btn"></button>
+            <button id="cancel-import-preview-btn"></button>
+            <strong id="import-preview-projects"></strong>
+            <strong id="import-preview-progress"></strong>
+            <strong id="import-preview-tasks"></strong>
+            <strong id="import-preview-documents"></strong>
+            <strong id="import-compare-new-projects"></strong>
+            <strong id="import-compare-existing-projects"></strong>
+            <strong id="import-compare-duplicate-projects"></strong>
+            <strong id="import-compare-changed-projects"></strong>
+            <div id="import-compare-summary"></div>
+            <div id="import-merge-panel">
+              <p id="import-merge-hint"></p>
+              <button id="import-merge-use-imported-btn"></button>
+              <div id="import-merge-list"></div>
+            </div>
+            <div id="import-preview-list"></div>
+            <p id="import-preview-warning"></p>
+          </div>
+        </div>
+
+        <textarea id="global-report-output" rows="30" readonly></textarea>
+        <p id="global-report-feedback" class="muted feedback"></p>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="project-dialog">
+    <form id="project-form" method="dialog" class="form-grid">
+      <h2 id="project-form-title">Nuevo proyecto</h2>
+      <input type="hidden" id="project-id" />
+
+      <label>Título
+        <input id="title" required />
+      </label>
+      <label>Curso / ámbito
+        <input id="scope" />
+      </label>
+      <label>Responsable principal
+        <input id="owner" />
+      </label>
+      <label>Participantes
+        <input id="participants" placeholder="Separados por comas" />
+      </label>
+      <label>Fecha de inicio
+        <input id="startDate" type="date" />
+      </label>
+      <label>Fecha prevista de cierre
+        <input id="endDate" type="date" />
+      </label>
+      <label>Estado
+        <select id="status"></select>
+      </label>
+      <label class="full">Descripción breve
+        <textarea id="summary" rows="3"></textarea>
+      </label>
+      <label class="full">Objetivo
+        <textarea id="goal" rows="3"></textarea>
+      </label>
+      <label class="full">Observaciones generales
+        <textarea id="generalNotes" rows="3"></textarea>
+      </label>
+
+      <menu class="dialog-actions full">
+        <button type="button" data-close-dialog="project-dialog">Cancelar</button>
+        <button class="primary" type="submit">Guardar proyecto</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="entry-dialog">
+    <form id="entry-form" method="dialog" class="form-grid">
+      <h2 id="entry-form-title">Nuevo registro</h2>
+      <input type="hidden" id="entry-kind" />
+      <input type="hidden" id="entry-project-id" />
+      <input type="hidden" id="entry-id" />
+
+      <div id="entry-fields" class="full dynamic-fields"></div>
+
+      <menu class="dialog-actions full">
+        <button type="button" data-close-dialog="entry-dialog">Cancelar</button>
+        <button class="primary" type="submit">Guardar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <template id="progress-fields-template">
+    <label>Fecha
+      <input name="date" type="date" required />
+    </label>
+    <label>Autor
+      <input name="author" required />
+    </label>
+    <label>Tipo de avance
+      <select name="type"></select>
+    </label>
+    <label class="full">Descripción de lo realizado
+      <textarea name="done" rows="3" required></textarea>
+    </label>
+    <label class="full">Acuerdos
+      <textarea name="agreements" rows="2"></textarea>
+    </label>
+    <label class="full">Dificultades
+      <textarea name="difficulties" rows="2"></textarea>
+    </label>
+    <label class="full">Siguiente paso
+      <textarea name="nextStep" rows="2"></textarea>
+    </label>
+  </template>
+
+  <template id="task-fields-template">
+    <label>Título
+      <input name="title" required />
+    </label>
+    <label>Responsable
+      <input name="owner" />
+    </label>
+    <label>Fecha prevista
+      <input name="dueDate" type="date" />
+    </label>
+    <label>Estado
+      <select name="status"></select>
+    </label>
+    <label>Prioridad
+      <select name="priority"></select>
+    </label>
+    <label class="full">Notas
+      <textarea name="notes" rows="3"></textarea>
+    </label>
+  </template>
+
+  <template id="document-fields-template">
+    <label>Nombre
+      <input name="name" required />
+    </label>
+    <label>Tipo
+      <select name="type"></select>
+    </label>
+    <label>Enlace
+      <input name="url" type="url" placeholder="https://..." />
+    </label>
+    <label>Fecha
+      <input name="date" type="date" />
+    </label>
+    <label class="full">Descripción breve
+      <textarea name="description" rows="3"></textarea>
+    </label>
+  </template>
+
+  <template id="participant-diary-fields-template">
+    <label>Fecha
+      <input name="date" type="date" required />
+    </label>
+    <label>Participante
+      <input name="participant" required />
+    </label>
+    <label>Tipo de entrada
+      <select name="type"></select>
+    </label>
+    <label>Ubicación
+      <input name="location" placeholder="Ej: Taller 7, Aula 24, Sala de reuniones…" />
+    </label>
+    <label class="full">Qué hizo
+      <textarea name="whatDid" rows="3" required></textarea>
+    </label>
+    <label class="full">Observaciones
+      <textarea name="observations" rows="2"></textarea>
+    </label>
+    <label class="full">Dificultades
+      <textarea name="difficulties" rows="2"></textarea>
+    </label>
+    <label class="full">Siguiente paso
+      <textarea name="nextStep" rows="2"></textarea>
+    </label>
+  </template>
+
+  <template id="closing-fields-template">
+    <label>Fecha de cierre
+      <input name="closeDate" type="date" />
+    </label>
+    <label>Valoración final
+      <input name="finalAssessment" placeholder="Breve síntesis final" />
+    </label>
+    <label class="full">Resultados alcanzados
+      <textarea name="achievedResults" rows="3"></textarea>
+    </label>
+    <label class="full">Dificultades encontradas
+      <textarea name="difficultiesFound" rows="3"></textarea>
+    </label>
+    <label class="full">Propuestas de mejora
+      <textarea name="improvementProposals" rows="3"></textarea>
+    </label>
+    <label class="full">Observaciones finales
+      <textarea name="finalNotes" rows="3"></textarea>
+    </label>
+  </template>
+
+  <script src="./supabase.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
