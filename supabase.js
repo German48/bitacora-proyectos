@@ -97,6 +97,33 @@ async function sbSignUp(email, pass) {
   return { needsConfirmation: true };
 }
 
+function sbSignInWithGoogle() {
+  const redirectTo = window.location.origin + window.location.pathname;
+  window.location.href = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectTo)}`;
+}
+
+async function sbHandleOAuthCallback() {
+  // Supabase redirige con el token en el hash: #access_token=...&refresh_token=...
+  const hash = window.location.hash;
+  if (!hash) return null;
+  const params = new URLSearchParams(hash.replace('#', ''));
+  const access_token = params.get('access_token');
+  const refresh_token = params.get('refresh_token');
+  const expires_in = params.get('expires_in');
+  if (!access_token) return null;
+  // Obtener datos del usuario
+  try {
+    const res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${access_token}` }
+    });
+    const user = await res.json();
+    const session = sbSaveSession({ access_token, refresh_token, expires_in: Number(expires_in) || 3600, user });
+    // Limpiar el hash de la URL sin recargar
+    history.replaceState(null, '', window.location.pathname);
+    return session;
+  } catch { return null; }
+}
+
 async function sbSignOut() {
   const session = sbGetSession();
   if (session?.access_token) {

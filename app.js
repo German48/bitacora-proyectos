@@ -167,6 +167,10 @@ function initLoginOverlay() {
   // Enter en password → login
   const passInput = document.getElementById('login-password');
   if (passInput) passInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
+
+  // Botón Google
+  const googleBtn = document.getElementById('google-btn');
+  if (googleBtn) googleBtn.addEventListener('click', () => sbSignInWithGoogle());
 }
 
 async function startAppWithSession() {
@@ -211,9 +215,17 @@ initLogoutBtn();
 init();
 
 (async () => {
+  // 1. Comprobar si venimos de un callback OAuth de Google (hash en URL)
+  if (window.location.hash.includes('access_token')) {
+    const session = await sbHandleOAuthCallback();
+    if (session) {
+      await startAppWithSession();
+      return;
+    }
+  }
+  // 2. Comprobar sesión guardada
   const session = await sbGetValidSession();
   if (!session) {
-    // Sin sesión: limpiar cualquier dato local y mostrar login
     state.projects = [];
     localStorage.removeItem(STORAGE_KEY);
     LEGACY_STORAGE_KEYS.forEach(k => localStorage.removeItem(k));
