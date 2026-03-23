@@ -92,8 +92,87 @@ const el = {
   importMergeUseImportedBtn: document.getElementById('import-merge-use-imported-btn')
 };
 
-// Arranque: cargar desde Supabase
-sbLoad().then((row) => {
+// ──────────────────────────────────────────────
+// ARRANQUE CON AUTH
+// ──────────────────────────────────────────────
+
+function showLoginOverlay() {
+  const overlay = document.getElementById('login-overlay');
+  if (overlay) overlay.classList.remove('hidden');
+}
+
+function hideLoginOverlay() {
+  const overlay = document.getElementById('login-overlay');
+  if (overlay) overlay.classList.add('hidden');
+}
+
+function setLoginError(msg) {
+  const el = document.getElementById('login-error');
+  const info = document.getElementById('login-info');
+  if (el) { el.textContent = msg; el.style.display = msg ? 'block' : 'none'; }
+  if (info) info.style.display = 'none';
+}
+
+function setLoginInfo(msg) {
+  const info = document.getElementById('login-info');
+  const err = document.getElementById('login-error');
+  if (info) { info.textContent = msg; info.style.display = msg ? 'block' : 'none'; }
+  if (err) err.style.display = 'none';
+}
+
+function initLoginOverlay() {
+  const loginBtn = document.getElementById('login-btn');
+  const signupBtn = document.getElementById('signup-btn');
+
+  async function handleLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass = document.getElementById('login-password').value;
+    if (!email || !pass) { setLoginError('Por favor, introduce email y contraseña.'); return; }
+    loginBtn.disabled = true; signupBtn.disabled = true;
+    setLoginError('');
+    try {
+      await sbSignIn(email, pass);
+      await startAppWithSession();
+    } catch (err) {
+      setLoginError(err.message || 'Error al iniciar sesión.');
+    } finally {
+      loginBtn.disabled = false; signupBtn.disabled = false;
+    }
+  }
+
+  async function handleSignup() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass = document.getElementById('login-password').value;
+    if (!email || !pass) { setLoginError('Por favor, introduce email y contraseña.'); return; }
+    if (pass.length < 6) { setLoginError('La contraseña debe tener al menos 6 caracteres.'); return; }
+    loginBtn.disabled = true; signupBtn.disabled = true;
+    setLoginError('');
+    try {
+      const result = await sbSignUp(email, pass);
+      if (result && result.needsConfirmation) {
+        setLoginInfo('Registro completado. Revisa tu email para confirmar la cuenta y luego inicia sesión.');
+      } else {
+        await startAppWithSession();
+      }
+    } catch (err) {
+      setLoginError(err.message || 'Error al registrarse.');
+    } finally {
+      loginBtn.disabled = false; signupBtn.disabled = false;
+    }
+  }
+
+  if (loginBtn) loginBtn.addEventListener('click', handleLogin);
+  if (signupBtn) signupBtn.addEventListener('click', handleSignup);
+
+  // Enter en password → login
+  const passInput = document.getElementById('login-password');
+  if (passInput) passInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
+}
+
+async function startAppWithSession() {
+  hideLoginOverlay();
+
+  const row = await sbLoad().catch(() => null);
   if (row && Array.isArray(row.data) && row.data.length > 0) {
     state.projects = normalizeProjects(row.data);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
@@ -101,23 +180,48 @@ sbLoad().then((row) => {
     sbLastUpdatedAt = row.updated_at;
     renderAll();
   }
-  // Arrancar auto-sync cada 30s
-  sbStartAutoSync((remoteProjects) => {
-    state.projects = normalizeProjects(remoteProjects);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
-    ensureSelectedProjectStillExists();
-    renderAll();
-  });
-}).catch(() => {
-  sbStartAutoSync((remoteProjects) => {
-    state.projects = normalizeProjects(remoteProjects);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
-    ensureSelectedProjectStillExists();
-    renderAll();
-  });
-});
 
+  sbStartAutoSync((remoteProjects) => {
+    state.projects = normalizeProjects(remoteProjects);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.projects));
+    ensureSelectedProjectStillExists();
+    renderAll();
+  });
+}
+
+// Lógica de cerrar sesión
+function initLogoutBtn() {
+  const logoutBtn = document.getElementById('logout-btn');
+  if (!logoutBtn) return;
+  logoutBtn.addEventListener('click', async () => {
+    if (!confirm('¿Cerrar sesión?')) return;
+    await sbSignOut();
+    // Limpiar estado local
+    localStorage.removeItem(STORAGE_KEY);
+    state.projects = [];
+    state.selectedProjectId = null;
+    renderAll();
+    showLoginOverlay();
+  });
+}
+
+// Arranque principal
+initLoginOverlay();
+initLogoutBtn();
 init();
+
+(async () => {
+  const session = await sbGetValidSession();
+  if (!session) {
+    // Sin sesión: limpiar cualquier dato local y mostrar login
+    state.projects = [];
+    localStorage.removeItem(STORAGE_KEY);
+    LEGACY_STORAGE_KEYS.forEach(k => localStorage.removeItem(k));
+    showLoginOverlay();
+    return;
+  }
+  await startAppWithSession();
+})();
 
 function init() {
   fillSelect(document.getElementById('status'), PROJECT_STATES);

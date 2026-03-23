@@ -1,7 +1,7 @@
 # 📓 Bitácora de Proyectos — Manual de Usuario
 
 > **Dirigido a:** Profesores del Departamento de Formación Profesional
-> **App:** PWA (Aplicación Web Progresiva) · Funciona también en el móvil
+> **App:** PWA (Aplicación Web Progresiva) · Funciona en ordenador, Android e iPhone
 > **Web:** [https://german48.github.io/bitacora-proyectos](https://german48.github.io/bitacora-proyectos)
 
 ---
@@ -9,19 +9,20 @@
 ## Tabla de contenidos
 
 1. [Introducción](#1-introducción)
-2. [Cómo acceder a la app](#2-cómo-acceder-a-la-app)
-3. [Instalar la app en tu móvil (Android)](#3-instalar-la-app-en-tu-móvil-android)
-4. [La pantalla principal](#4-la-pantalla-principal)
-5. [Crear un nuevo proyecto](#5-crear-un-nuevo-proyecto)
-6. [Ver y editar un proyecto](#6-ver-y-editar-un-proyecto)
-7. [El diario de participantes](#7-el-diario-de-participantes)
-8. [El registro de avances](#8-el-registro-de-avances)
-9. [Cambiar el estado de un proyecto](#9-cambiar-el-estado-de-un-proyecto)
-10. [Generar la memoria global](#10-generar-la-memoria-global)
-11. [Hacer un backup de tus datos](#11-hacer-un-backup-de-tus-datos)
-12. [Restaurar datos desde un backup](#12-restaurar-datos-desde-un-backup)
-13. [Datos compartidos entre compañeros](#13-datos-compartidos-entre-compañeros)
-14. [Preguntas frecuentes](#14-preguntas-frecuentes)
+2. [Crear tu cuenta e iniciar sesión](#2-crear-tu-cuenta-e-iniciar-sesión)
+3. [Instalar la app en tu móvil Android](#3-instalar-la-app-en-tu-móvil-android)
+4. [Instalar la app en iPhone o iPad](#4-instalar-la-app-en-iphone-o-ipad)
+5. [La pantalla principal](#5-la-pantalla-principal)
+6. [Crear un nuevo proyecto](#6-crear-un-nuevo-proyecto)
+7. [Ver y editar un proyecto](#7-ver-y-editar-un-proyecto)
+8. [El diario de participantes](#8-el-diario-de-participantes)
+9. [El registro de avances](#9-el-registro-de-avances)
+10. [Cambiar el estado de un proyecto](#10-cambiar-el-estado-de-un-proyecto)
+11. [Generar la memoria global](#11-generar-la-memoria-global)
+12. [Hacer un backup de tus datos](#12-hacer-un-backup-de-tus-datos)
+13. [Restaurar datos desde un backup](#13-restaurar-datos-desde-un-backup)
+14. [Cerrar sesión](#14-cerrar-sesión)
+15. [Preguntas frecuentes](#15-preguntas-frecuentes)
 
 ---
 
@@ -29,282 +30,285 @@
 
 **¿Qué es la Bitácora de Proyectos?**
 
-Es una herramienta online donde todo el departamento de Formación Profesional puede registrar y consultar los proyectos que se están llevando a cabo. Cada proyecto tiene su propia ficha donde se anota qué se ha hecho, qué dificultades hubo y cuáles son los próximos pasos.
+Es una herramienta online donde cada profesor del departamento puede registrar y gestionar sus proyectos de forma personal y privada. Cada usuario tiene su propio espacio: nadie más ve tus proyectos salvo tú.
 
 **¿Qué puedes hacer con ella?**
 
-- ✅ Crear proyectos nuevos
-- 📝 Registrar lo que hace cada participante día a día
-- 📊 Registrar hitos y avances importantes
-- 📄 Generar un informe resumen de todos los proyectos activos
+- ✅ Crear proyectos propios
+- 📝 Registrar la actividad diaria de cada participante
+- 📊 Anotar hitos y avances importantes
+- 📄 Generar un informe resumen de todos tus proyectos activos
 - 💾 Hacer copias de seguridad y restaurarlas
-- 📱 Instalarla como una app en tu móvil
+- 📱 Instalarla como app en tu móvil (Android e iPhone)
 
-> **Importante:** Los datos se comparten entre todos los compañeros del departamento. Si alguien crea o modifica un proyecto, todos lo ven automáticamente.
-
----
-
-## 2. Cómo acceder a la app
-
-### Desde el ordenador
-
-1. Abre tu navegador favorito (Chrome, Firefox, Edge…).
-2. Escribe en la barra de direcciones: **https://german48.github.io/bitacora-proyectos**
-3. Pulsa **Enter**.
-
-### Desde el móvil
-
-Puedes acceder igual que desde el ordenador, abriendo el navegador y escribiendo la dirección. Pero la forma más cómoda es **instalarla como app** (mira el apartado siguiente).
+> **Importante:** Desde esta versión, cada profesor tiene su propio acceso con email y contraseña. Tus datos son tuyos y nadie más puede verlos.
 
 ---
 
-## 3. Instalar la app en tu móvil (Android)
+## 2. Crear tu cuenta e iniciar sesión
 
-Una vez instalada, la app aparecerá en tu pantalla de inicio como cualquier otra aplicación y funcionará sin necesidad de tener el navegador abierto.
+Al abrir la app por primera vez verás la **pantalla de acceso** antes de entrar.
 
-### Pasos para instalarla:
+### Iniciar sesión (si ya tienes cuenta)
+
+1. Escribe tu **email** y tu **contraseña**.
+2. Pulsa **Entrar**.
+3. Si los datos son correctos, accederás directamente a tu espacio de proyectos.
+
+### Crear una cuenta nueva
+
+1. Escribe el **email** que quieras usar y una **contraseña** (mínimo 6 caracteres).
+2. Pulsa **Registrarse**.
+3. El acceso es inmediato — no necesitas confirmar el email.
+4. Ya puedes empezar a usar la app.
+
+> **Consejo:** Usa tu email del trabajo para que sea fácil de recordar.
+
+### Si olvidas la contraseña
+
+Contacta con el administrador de la app para que pueda restablecerla desde el panel de gestión.
+
+---
+
+## 3. Instalar la app en tu móvil Android
+
+Una vez instalada, la app aparecerá en tu pantalla de inicio como cualquier otra aplicación.
 
 1. Abre **Chrome** en tu móvil Android.
 2. Ve a la dirección: **https://german48.github.io/bitacora-proyectos**
-3. Pulsa en el botón de **menú** (los tres puntitos `⋮`) que aparece arriba a la derecha.
-4. Selecciona la opción **"Añadir a pantalla de inicio"** (o *"Instalar app"* en algunos móviles).
-5. Opcionalmente puedes cambiar el nombre y luego pulsa **Añadir**.
-6. ¡Listo! Ya tienes la app en tu pantalla de inicio. Puedes abrirla tocando su icono.
+3. Pulsa el menú **⋮** (tres puntitos, arriba a la derecha).
+4. Selecciona **"Añadir a pantalla de inicio"** o **"Instalar app"**.
+5. Confirma el nombre y pulsa **Añadir**.
+6. ¡Listo! Toca el icono para abrir la app directamente.
 
-> **Nota:** Necesitas tener Chrome como navegador. En otros navegadores (como Samsung Internet) la opción puede estar en un lugar ligeramente distinto, pero el proceso es muy similar.
+> **Nota:** Si usas Samsung Internet u otro navegador, la opción puede llamarse de forma distinta pero el proceso es el mismo.
 
 ---
 
-## 4. La pantalla principal
+## 4. Instalar la app en iPhone o iPad
 
-Al abrir la app verás una barra superior con:
+1. Abre **Safari** en tu iPhone o iPad.
+2. Ve a la dirección: **https://german48.github.io/bitacora-proyectos**
+3. Pulsa el botón de **Compartir** (el cuadrado con flecha hacia arriba ↑) en la barra inferior.
+4. Desplázate hacia abajo en el menú y selecciona **"Añadir a pantalla de inicio"**.
+5. Cambia el nombre si quieres y pulsa **Añadir** (arriba a la derecha).
+6. El icono de la app aparecerá en tu pantalla de inicio.
+
+> **Importante:** En iPhone solo funciona correctamente desde **Safari**. Chrome y otros navegadores en iOS no permiten instalar PWAs.
+
+---
+
+## 5. La pantalla principal
+
+Al entrar verás la interfaz principal con:
 
 | Elemento | Qué hace |
 |---|---|
-| **Proyectos ▾** | Despliega la lista de todos los proyectos del departamento |
-| **+ Nuevo proyecto** | Botón para crear un proyecto nuevo |
-| **Memoria global** | Genera un informe de todos los proyectos activos |
-| **Backup** | Descarga una copia de seguridad de todos los datos |
+| **Proyectos ▾** | Despliega la lista de tus proyectos |
+| **+ Nuevo proyecto** | Crea un proyecto nuevo |
+| **Memoria global** | Genera un informe de todos tus proyectos activos |
+| **Backup** | Descarga una copia de seguridad de tus datos |
 | **Restaurar** | Recupera datos desde un archivo de backup |
-
-Debajo de la barra encontrarás la **ficha del proyecto seleccionado** (al principio aparece vacía o se muestra un proyecto predeterminado).
+| **Salir** | Cierra tu sesión |
 
 ---
 
-## 5. Crear un nuevo proyecto
+## 6. Crear un nuevo proyecto
 
-1. Pulsa el botón **+ Nuevo proyecto** en la barra superior.
-2. Se abrirá un formulario con los siguientes campos:
+1. Pulsa el botón **+ Nuevo proyecto**.
+2. Rellena el formulario:
 
 | Campo | Qué escribir |
 |---|---|
 | **Título** | Nombre del proyecto (ej. *"Adaptaciones curriculares 2025"*) |
-| **Ámbito** | Área o módulo al que pertenece (ej. *"Informática"*, *"Electricidad"*) |
+| **Ámbito** | Área o módulo al que pertenece |
 | **Responsable** | Persona que coordina el proyecto |
-| **Participantes** | Nombres de los profesores/alumnos implicados (separados por coma) |
+| **Participantes** | Nombres de los implicados (separados por coma) |
 | **Fecha de inicio** | Cuándo empieza el proyecto |
 | **Fecha de fin** | Cuándo está previsto terminarlo (puede quedar vacío) |
-| **Estado** | Estado actual del proyecto (ver apartado 9) |
-| **Descripción** | Explicación breve de en qué consiste el proyecto |
-| **Objetivo** | Qué se quiere conseguir con este proyecto |
+| **Estado** | Estado actual del proyecto |
+| **Descripción** | Breve explicación del proyecto |
+| **Objetivo** | Qué se quiere conseguir |
 
-3. Rellena los campos que necesites.
-4. Pulsa **Guardar** (o el botón equivalente de tu interfaz).
-5. El proyecto aparecerá en la lista desplegable bajo **Proyectos ▾**.
+3. Pulsa **Guardar**. El proyecto aparecerá en la lista desplegable.
 
 ---
 
-## 6. Ver y editar un proyecto
+## 7. Ver y editar un proyecto
 
-1. Pulsa el botón **Proyectos ▾** en la barra superior.
-2. Selecciona el proyecto que quieras consultar.
-3. Se mostrará su **ficha completa** con:
-   - **Datos generales** (título, ámbito, responsable, fechas, estado…)
-   - **Diario de participantes** (registro de actividad diaria)
-   - **Registro de avances** (hitos y logros del proyecto)
-4. Para editar cualquier dato, busca el icono de **lápiz** o botón **Editar** dentro de la ficha y modifica los campos que necesites.
-5. Pulsa **Guardar** para guardar los cambios.
+1. Pulsa **Proyectos ▾** y selecciona el proyecto que quieras consultar.
+2. Se mostrará su **ficha completa** con datos generales, diario y avances.
+3. Para editar, pulsa el icono de **lápiz** o el botón **Editar** y modifica los campos.
+4. Pulsa **Guardar** para confirmar los cambios.
 
 ---
 
-## 7. El diario de participantes
+## 8. El diario de participantes
 
-Es el registro de la actividad diaria o por sesión de cada participante en el proyecto.
+Registro de la actividad diaria o por sesión de cada participante en el proyecto.
 
 ### Añadir una entrada:
 
-1. Entra en la ficha del proyecto.
-2. Ve a la pestaña o sección **"Diario de participantes"**.
-3. Pulsa el botón **+ Nueva entrada** (o similar).
-4. Rellena los campos:
+1. Entra en la ficha del proyecto y ve a la sección **"Diario de participantes"**.
+2. Pulsa **+ Nueva entrada**.
+3. Rellena los campos:
 
 | Campo | Qué escribir |
 |---|---|
-| **Fecha** | Día en que se realizó el trabajo (se suele poner automáticamente) |
+| **Fecha** | Día en que se realizó el trabajo |
 | **Participante** | Nombre de la persona que ha trabajado |
-| **Tipo** | Tipo de actividad (ej. *Reunión*, *Trabajo en aula*, *Preparación…*) |
-| **Ubicación** | Lugar donde se ha hecho el trabajo (ej. *Aulario B*, *Taller 3*) |
-| **Qué hizo** | Descripción de las tareas realizadas ese día |
-| **Observaciones** | Notas adicionales que quieras recordar |
-| **Dificultades** | Problemas encontrados (si no hubo, se puede dejar vacío) |
-| **Siguiente paso** | Qué se tiene previsto hacer en la próxima sesión |
+| **Tipo** | Tipo de actividad (Reunión, Taller, Preparación…) |
+| **Ubicación** | Lugar donde se hizo el trabajo |
+| **Qué hizo** | Descripción de las tareas realizadas |
+| **Observaciones** | Notas adicionales |
+| **Dificultades** | Problemas encontrados (si los hay) |
+| **Siguiente paso** | Qué se prevé hacer en la próxima sesión |
 
-5. Pulsa **Guardar**.
+4. Pulsa **Guardar**.
 
-Las entradas se muestran en orden cronológico (de la más reciente a la más antigua). Puedes editarlas o eliminarlas si te equivocas.
+Las entradas se muestran en orden cronológico (de la más reciente a la más antigua). Puedes editarlas o eliminarlas.
 
 ---
 
-## 8. El registro de avances
+## 9. El registro de avances
 
-Aquí se apuntan los **hitos importantes** del proyecto: logros conseguidos, reuniones relevantes, decisiones tomadas, etc.
+Aquí se anotan los **hitos importantes** del proyecto: logros conseguidos, reuniones relevantes, decisiones tomadas, etc.
 
 ### Añadir un avance:
 
-1. Entra en la ficha del proyecto.
-2. Ve a la pestaña o sección **"Registro de avances"**.
-3. Pulsa el botón **+ Nuevo avance** (o similar).
-4. Rellena los campos:
+1. Entra en la ficha del proyecto y ve a **"Registro de avances"**.
+2. Pulsa **+ Nuevo avance**.
+3. Rellena los campos:
 
 | Campo | Qué escribir |
 |---|---|
 | **Fecha** | Día en que se produjo el hito |
 | **Autor** | Quién registra el avance |
-| **Tipo** | Tipo de hito (ej. *Reunión*, *Entregable*, *Decisión*, *Evaluación…*) |
-| **Realizado** | Qué se ha conseguido en este hito |
+| **Tipo** | Tipo de hito (Reunión, Entregable, Decisión…) |
+| **Realizado** | Qué se ha conseguido |
 | **Acuerdos** | Acuerdos tomados (si los hay) |
 | **Dificultades** | Problemas surgidos |
-| **Siguiente paso** | Acción que queda pendiente tras este hito |
+| **Siguiente paso** | Acción pendiente tras este hito |
 
-5. Pulsa **Guardar**.
+4. Pulsa **Guardar**.
 
 ---
 
-## 9. Cambiar el estado de un proyecto
-
-Cada proyecto tiene un **estado** que se muestra con un color para identificarlo fácilmente:
+## 10. Cambiar el estado de un proyecto
 
 | Estado | Color | Cuándo usarlo |
 |---|---|---|
-| 🟡 **Borrador** | Gris | El proyecto está en fase de planificación, aún no ha comenzado |
+| 🟡 **Borrador** | Gris | En fase de planificación, aún no ha comenzado |
 | 🟢 **Activo** | Verde | El proyecto está en marcha |
-| 🟠 **En pausa** | Naranja | El proyecto se ha detenido temporalmente |
-| 🔵 **Cerrado** | Azul | El proyecto ha finalizado |
+| 🟠 **En pausa** | Naranja | Detenido temporalmente |
+| 🔵 **Cerrado** | Azul | Ha finalizado |
 
 ### Para cambiar el estado:
 
 1. Entra en la ficha del proyecto.
-2. Busca el selector o desplegable de **Estado**.
-3. Selecciona el nuevo estado.
-4. El cambio se guarda automáticamente o al pulsar **Guardar**.
+2. Busca el selector de **Estado** y elige el nuevo.
+3. El cambio se guarda automáticamente o al pulsar **Guardar**.
 
 ---
 
-## 10. Generar la memoria global
+## 11. Generar la memoria global
 
-La **memoria global** es un informe automático que recopila todos los proyectos que están en estado **Activo**. Es útil para presentar un resumen al equipo directivo o al departamento.
+Genera un informe automático con todos tus proyectos en estado **Activo**.
 
-1. Pulsa el botón **Memoria global** en la barra superior.
+1. Pulsa **Memoria global** en la barra superior.
 2. Selecciona el formato de exportación:
-   - **TXT** → Archivo de texto plano (`.txt`)
-   - **MD** → Archivo Markdown (`.md`), ideal para copiar y pegar en documentos Word o Google Docs
-3. Se descargará un archivo con toda la información de los proyectos activos.
-4. Puedes abrirlo con cualquier editor de texto o procesador de documentos.
+   - **TXT** → Archivo de texto plano
+   - **MD** → Archivo Markdown (ideal para copiar en Word o Google Docs)
+3. Se descargará el archivo con el resumen de todos tus proyectos activos.
 
 ---
 
-## 11. Hacer un backup de tus datos
+## 12. Hacer un backup de tus datos
 
-El **backup** es una copia de seguridad de todos los proyectos y registros. Si algo sale mal, podrás recuperar todos los datos.
+1. Pulsa **Backup** en la barra superior.
+2. El navegador descargará un archivo `.json` con todos tus datos.
+3. Guárdalo en un lugar seguro (OneDrive, carpeta local…).
 
-1. Pulsa el botón **Backup** en la barra superior.
-2. El navegador te ofrecerá **descargar un archivo** (extensión `.json`).
-3. Elige dónde guardarlo (móvil, carpeta de Drive, etc.).
-4. **Recomendación:** Guarda este archivo en un lugar seguro y haz un backup de vez en cuando, especialmente antes de hacer cambios importantes.
+> **Recomendación:** Haz un backup al menos una vez al mes y siempre antes de hacer cambios importantes.
 
 ---
 
-## 12. Restaurar datos desde un backup
+## 13. Restaurar datos desde un backup
 
-Si necesitas recuperar los datos (por ejemplo, si se han borrado accidentalmente o cambias de dispositivo):
-
-1. Pulsa el botón **Restaurar** en la barra superior.
-2. Selecciona el archivo `.json` que guardaste previamente.
+1. Pulsa **Restaurar** en la barra superior.
+2. Selecciona el archivo `.json` que guardaste.
 3. Confirma la restauración.
-4. Los datos se cargarán y la app mostrará el estado de tu último backup.
 
-> ⚠️ **Atención:** Restaurar un backup sobrescribirá los datos actuales. Asegúrate de que el archivo que cargas es el que quieres usar.
-
----
-
-## 13. Datos compartidos entre compañeros
-
-Una de las grandes ventajas de esta app es que **todos los profesores del departamento ven y trabajan sobre los mismos datos**. No hay una copia para cada uno.
-
-**¿Qué significa esto en la práctica?**
-
-- Si Ana crea un proyecto, Benito y Carlos lo verán inmediatamente.
-- Si un compañero añade una entrada al diario, todos la ven al instante.
-- **Solo existe una fuente de verdad**, así que no hay conflictos de versiones.
-
-> **Nota:** Para que los datos se actualicen en tiempo real es necesario tener conexión a internet. Si trabajas sin conexión, los cambios se sincronizarán cuando vuelvas a conectarte.
+> ⚠️ **Atención:** Restaurar un backup sobrescribirá los datos actuales. Asegúrate de usar el archivo correcto.
 
 ---
 
-## 14. Preguntas frecuentes
+## 14. Cerrar sesión
+
+Para salir de tu cuenta:
+
+1. Pulsa el botón **Salir** en la barra superior (o en el menú lateral).
+2. La app cerrará tu sesión y volverá a la pantalla de acceso.
+3. Tus datos quedan guardados en el servidor — al volver a entrar con tu email y contraseña los encontrarás exactamente igual.
+
+> **Consejo:** Si compartes el dispositivo con otras personas, cierra siempre la sesión al terminar.
+
+---
+
+## 15. Preguntas frecuentes
+
+### 🔐 ¿Mis datos son privados?
+
+Sí. Cada profesor accede con su propio email y contraseña. Nadie más puede ver tus proyectos.
+
+---
 
 ### 🚚 ¿Puedo usar la app sin conexión a internet?
 
-Puedes abrirla y consultar datos, pero para que los cambios se guarden y se compartan con los demás, necesitas tener **conexión a internet**.
+Puedes abrirla y consultar los datos en caché, pero para guardar cambios o sincronizar necesitas **conexión a internet**.
 
 ---
 
-### 📱 ¿Puedo instalarla en un iPhone?
+### 📱 ¿Funciona en iPhone?
 
-La app está optimizada para **Chrome en Android**. En iPhone/iPad puedes intentar acceder desde Safari y buscar la opción *"Añadir a pantalla de inicio"* en el menú de compartir, aunque la experiencia puede variar.
+Sí. Accede desde **Safari** y usa la opción "Añadir a pantalla de inicio" (ver apartado 4). Chrome en iPhone no permite instalar PWAs.
 
 ---
 
 ### 🔒 ¿Dónde se guardan mis datos?
 
-Los datos se almacenan en un servidor compartido al que todos los compañeros del departamento acceden. **Tú no necesitas gestionar servidores ni bases de datos**; la app lo hace automáticamente.
+En un servidor seguro (Supabase). Tú no necesitas gestionar nada — la app lo hace automáticamente.
 
 ---
 
 ### 💾 ¿Cada cuánto debo hacer un backup?
 
-Se recomienda hacer un backup **al menos una vez al mes** y siempre antes de hacer cambios importantes (por ejemplo, antes de modificar muchos proyectos a la vez). El archivo `.json` que te descargas es tu copia de seguridad.
+Al menos **una vez al mes** y siempre antes de hacer cambios importantes en masa.
 
 ---
 
 ### ❌ He borrado algo sin querer, ¿puedo recuperarlo?
 
-Si tienes un backup anterior, sí. Pulsa **Restaurar** y carga el archivo `.json` que guardaste. Si no tienes backup, no será posible recuperar los datos eliminados.
-
----
-
-### 👥 ¿Quién puede ver mis proyectos?
-
-Tienen acceso todos los profesores del departamento de Formación Profesional que usen la app. **No es una app pública; los datos no son visibles para nadie fuera del grupo.**
-
----
-
-### 📄 ¿Puedo exportar un solo proyecto, no todos?
-
-Actualmente la memoria global exporta todos los proyectos activos. Para exportar uno solo, puedes copiar manualmente la información desde la ficha del proyecto o hacer un backup completo y extraer los datos del archivo JSON.
+Si tienes un backup anterior, sí. Pulsa **Restaurar** y carga el archivo `.json`. Sin backup, no es posible recuperar lo eliminado.
 
 ---
 
 ### 🖊️ ¿Puedo editar una entrada antigua?
 
-Sí. Busca la entrada en el diario o en el registro de avances, pulsa el botón de **editar** (lápiz) y modifica los campos que necesites. No hay límite de tiempo para editar.
+Sí. Pulsa el botón de **editar** (lápiz) en cualquier entrada, sin límite de tiempo.
 
 ---
 
-### 🔄 ¿Qué pasa si dos personas editan el mismo proyecto a la vez?
+### 🔄 ¿Puedo usar la app desde varios dispositivos?
 
-Los cambios se sincronizan automáticamente. Si ambos guardáis, los últimos cambios se incorporan. En general, la app está pensada para que cada persona edite las entradas que ella misma ha creado.
+Sí. Entra con el mismo email y contraseña desde el ordenador, el móvil o la tablet. Tus datos estarán siempre actualizados en todos ellos.
 
 ---
 
-*Manual creado para el Departamento de Formación Profesional · Bitácora de Proyectos v1.0*
+### 🔑 He olvidado mi contraseña, ¿qué hago?
+
+Contacta con el administrador de la app para que pueda restablecer tu acceso.
+
+---
+
+*Manual actualizado · Bitácora de Proyectos v2.0 · Multiusuario con login*

@@ -8,8 +8,105 @@
   <title>Bitácora de Proyectos</title>
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.svg" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Bitácora" />
   <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* ── Login overlay ── */
+    #login-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg, #f3f5f8);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #login-overlay.hidden { display: none; }
+    .login-box {
+      background: var(--card, #fff);
+      border-radius: var(--radius, 14px);
+      box-shadow: var(--shadow, 0 8px 24px rgba(15,23,42,.08));
+      padding: 2.5rem 2rem;
+      width: 100%; max-width: 380px;
+    }
+    .login-box h2 {
+      margin: 0 0 1.5rem;
+      font-size: 1.25rem;
+      color: var(--text, #1f2937);
+      text-align: center;
+    }
+    .login-box label {
+      display: block;
+      font-size: .85rem;
+      color: var(--muted, #667085);
+      margin-bottom: .25rem;
+    }
+    .login-box input[type="email"],
+    .login-box input[type="password"] {
+      width: 100%; box-sizing: border-box;
+      padding: .6rem .75rem;
+      border: 1px solid var(--line, #d7dde5);
+      border-radius: 8px;
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--surface, #fff);
+      margin-bottom: 1rem;
+    }
+    .login-box input:focus {
+      outline: 2px solid var(--primary, #1d4ed8);
+      outline-offset: -1px;
+    }
+    .login-actions {
+      display: flex; gap: .75rem; margin-top: .5rem;
+    }
+    .login-actions button {
+      flex: 1; padding: .65rem;
+      border: none; border-radius: 8px;
+      font-size: .95rem; cursor: pointer;
+      font-weight: 600;
+    }
+    #login-btn {
+      background: var(--primary, #1d4ed8);
+      color: #fff;
+    }
+    #login-btn:hover { filter: brightness(1.1); }
+    #signup-btn {
+      background: var(--primary-soft, #dbeafe);
+      color: var(--primary, #1d4ed8);
+    }
+    #signup-btn:hover { filter: brightness(.95); }
+    #login-error {
+      display: none;
+      margin-top: .75rem;
+      padding: .5rem .75rem;
+      background: #fee2e2;
+      color: #991b1b;
+      border-radius: 8px;
+      font-size: .85rem;
+    }
+    #login-info {
+      display: none;
+      margin-top: .75rem;
+      padding: .5rem .75rem;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 8px;
+      font-size: .85rem;
+    }
+    /* ── Botón cerrar sesión ── */
+    #logout-btn {
+      font-size: .8rem;
+      padding: .35rem .75rem;
+      border: 1px solid var(--line, #d7dde5);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted, #667085);
+      cursor: pointer;
+    }
+    #logout-btn:hover {
+      background: var(--primary-soft, #dbeafe);
+      color: var(--primary, #1d4ed8);
+    }
+  </style>
   <style>
     /* Ocultar secciones del proyecto que no se necesitan */
     #accordion-body-tasks,
@@ -32,6 +129,24 @@
   </style>
 </head>
 <body>
+
+  <!-- ── LOGIN OVERLAY ── -->
+  <div id="login-overlay">
+    <div class="login-box">
+      <h2>🗂 Bitácora de Proyectos</h2>
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="usuario@ejemplo.com" autocomplete="email" />
+      <label for="login-password">Contraseña</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+      <div class="login-actions">
+        <button id="login-btn">Entrar</button>
+        <button id="signup-btn">Registrarse</button>
+      </div>
+      <div id="login-error"></div>
+      <div id="login-info"></div>
+    </div>
+  </div>
+
   <header class="app-header">
     <div class="app-header__intro">
       <h1>Bitácora de Proyectos</h1>
@@ -60,6 +175,7 @@
       <div class="actions header-actions">
         <button id="install-app-btn" class="hidden">Instalar app</button>
       </div>
+      <button id="logout-btn" title="Cerrar sesión">Salir</button>
       <span id="sync-indicator" class="sync-indicator" data-status="ok" title="Sincronizado">&#9679;</span>
       <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar tema" title="Cambiar tema">
         <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

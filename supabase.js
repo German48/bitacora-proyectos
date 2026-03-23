@@ -1,14 +1,137 @@
 // Configuración Supabase
 const SUPABASE_URL = 'https://orypvcwpeomplyhqwzdh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_BaoQp9hf2xoEc5fUKGAXTA_xcvZmAIt';
-const RECORD_ID = 'bitacora-main';
 const SYNC_INTERVAL_MS = 30000; // 30 segundos
+const SESSION_KEY = 'bitacora-session';
+
+// ──────────────────────────────────────────────
+// AUTH
+// ──────────────────────────────────────────────
+
+function sbGetSession() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch { return null; }
+}
+
+function sbSaveSession(data) {
+  // data: { access_token, refresh_token, user, expires_in }
+  const session = {
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
+    user_id: data.user?.id || data.user_id,
+    expires_at: Date.now() + (data.expires_in || 3600) * 1000
+  };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  return session;
+}
+
+function sbClearSession() {
+  localStorage.removeItem(SESSION_KEY);
+}
+
+function sbIsTokenExpired(session) {
+  if (!session || !session.expires_at) return true;
+  return Date.now() >= session.expires_at - 60000; // 1min de margen
+}
+
+async function sbRefreshSession() {
+  const session = sbGetSession();
+  if (!session?.refresh_token) return null;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    if (!res.ok) { sbClearSession(); return null; }
+    const data = await res.json();
+    return sbSaveSession(data);
+  } catch { return null; }
+}
+
+async function sbGetValidSession() {
+  let session = sbGetSession();
+  if (!session) return null;
+  if (sbIsTokenExpired(session)) {
+    session = await sbRefreshSession();
+  }
+  return session;
+}
+
+async function sbSignIn(email, pass) {
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+    method: 'POST',
+    headers: {
+      apikey: SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password: pass })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error_description || data.msg || 'Error al iniciar sesión');
+  return sbSaveSession(data);
+}
+
+async function sbSignUp(email, pass) {
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+    method: 'POST',
+    headers: {
+      apikey: SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password: pass })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error_description || data.msg || 'Error al registrarse');
+  // Si requiere confirmación de email, access_token puede no estar presente
+  if (data.access_token) {
+    return sbSaveSession(data);
+  }
+  // Devolver indicación de que hay que confirmar email
+  return { needsConfirmation: true };
+}
+
+async function sbSignOut() {
+  const session = sbGetSession();
+  if (session?.access_token) {
+    try {
+      await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${session.access_token}`
+        }
+      });
+    } catch { /* ignorar errores de red al cerrar sesión */ }
+  }
+  sbClearSession();
+}
+
+// ──────────────────────────────────────────────
+// DATA (usa user_id como RECORD_ID)
+// ──────────────────────────────────────────────
 
 async function sbLoad() {
+  const session = await sbGetValidSession();
+  if (!session) return null;
+  const recordId = session.user_id;
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/proyectos_bitacora?id=eq.${RECORD_ID}&select=data,updated_at`, {
-      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
-    });
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/proyectos_bitacora?id=eq.${recordId}&select=data,updated_at`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${session.access_token}`
+        }
+      }
+    );
+    if (!res.ok) return null;
     const rows = await res.json();
     if (rows && rows.length > 0) return rows[0];
     return null;
@@ -17,16 +140,24 @@ async function sbLoad() {
 
 async function sbSave(projects) {
   sbSetSyncStatus('saving');
+  const session = await sbGetValidSession();
+  if (!session) { sbSetSyncStatus('error'); return; }
+  const recordId = session.user_id;
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/proyectos_bitacora`, {
       method: 'POST',
       headers: {
         apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
+        Authorization: `Bearer ${session.access_token}`,
         'Content-Type': 'application/json',
         Prefer: 'resolution=merge-duplicates'
       },
-      body: JSON.stringify({ id: RECORD_ID, data: projects, updated_at: new Date().toISOString() })
+      body: JSON.stringify({
+        id: recordId,
+        user_id: recordId,
+        data: projects,
+        updated_at: new Date().toISOString()
+      })
     });
     sbSetSyncStatus('ok');
   } catch {
@@ -42,7 +173,7 @@ function sbSetSyncStatus(status) {
   el.title = status === 'saving' ? 'Guardando...' : status === 'ok' ? 'Sincronizado' : 'Error al sincronizar';
 }
 
-// Auto-sync periódico: descarga cambios remotos
+// Auto-sync periódico
 let sbLastUpdatedAt = null;
 
 async function sbAutoSync(onUpdate) {
@@ -50,7 +181,6 @@ async function sbAutoSync(onUpdate) {
     sbSetSyncStatus('saving');
     const row = await sbLoad();
     if (!row) { sbSetSyncStatus('error'); return; }
-    // Solo actualiza si hay cambios remotos más recientes
     if (row.updated_at && row.updated_at !== sbLastUpdatedAt) {
       sbLastUpdatedAt = row.updated_at;
       if (Array.isArray(row.data) && row.data.length > 0) {
